@@ -16,25 +16,30 @@ GBrain is designed to be installed and operated by an AI agent. If you don't hav
 <details>
 <summary><strong>OpenClaw local install failing?</strong> (Homebrew / sudo errors)</summary>
 
-The `curl -fsSL https://openclaw.ai/install.sh | bash` script tries to install
-Homebrew, which requires macOS Administrator privileges. If you see:
+The `curl ... | bash` pipe eats stdin, so Homebrew's installer can't prompt for
+your sudo password — even if you are an admin. If you see:
 
 ```
 ✗ Installing Homebrew failed
+Warning: Running in non-interactive mode because `stdin` is not a TTY.
 Need sudo access on macOS (e.g. the user … needs to be an Administrator)!
 ```
 
-**Fix 1 — Install with npm or bun directly (no Homebrew needed):**
+**Fix 1 — Install Homebrew first, then re-run OpenClaw:**
+
+```bash
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+# once Homebrew is installed, re-run:
+curl -fsSL https://openclaw.ai/install.sh | bash
+```
+
+**Fix 2 — Install with npm or bun directly (no Homebrew needed):**
 
 ```bash
 npm install -g openclaw        # if you have Node.js
 # or
 bun install -g openclaw        # if you have Bun
 ```
-
-**Fix 2 — Install Homebrew first, then re-run:**
-
-Your macOS account needs to be an Administrator. Go to **System Settings → Users & Groups**, click the ⓘ next to your user, and enable **"Allow this user to administer this computer"**. Then re-run the install script.
 
 **Fix 3 — Skip local install, deploy to the cloud:**
 
