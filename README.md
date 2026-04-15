@@ -13,6 +13,35 @@ GBrain is designed to be installed and operated by an AI agent. If you don't hav
 - **[OpenClaw](https://openclaw.ai)** — Deploy [AlphaClaw on Render](https://render.com/deploy?repo=https://github.com/chrysb/alphaclaw) (one click, requires 8GB+ RAM instance)
 - **[Hermes Agent](https://github.com/NousResearch/hermes-agent)** — Deploy on [Railway using this template](https://github.com/praveen-ks-2001/hermes-agent-template) (one click)
 
+<details>
+<summary><strong>OpenClaw local install failing?</strong> (Homebrew / sudo errors)</summary>
+
+The `curl -fsSL https://openclaw.ai/install.sh | bash` script tries to install
+Homebrew, which requires macOS Administrator privileges. If you see:
+
+```
+✗ Installing Homebrew failed
+Need sudo access on macOS (e.g. the user … needs to be an Administrator)!
+```
+
+**Fix 1 — Install with npm or bun directly (no Homebrew needed):**
+
+```bash
+npm install -g openclaw        # if you have Node.js
+# or
+bun install -g openclaw        # if you have Bun
+```
+
+**Fix 2 — Install Homebrew first, then re-run:**
+
+Your macOS account needs to be an Administrator. Go to **System Settings → Users & Groups**, click the ⓘ next to your user, and enable **"Allow this user to administer this computer"**. Then re-run the install script.
+
+**Fix 3 — Skip local install, deploy to the cloud:**
+
+Use the [one-click Render deploy](https://render.com/deploy?repo=https://github.com/chrysb/alphaclaw) listed above. No local dependencies needed.
+
+</details>
+
 ## Start here
 
 **https://github.com/garrytan/gbrain** — clone this repo into your agent's filesystem. It's home base for docs, skills, upgrades, and recipes. To upgrade later: `git pull origin main && bun install`.
